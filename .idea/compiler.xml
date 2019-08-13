@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="springboot-anntion-consumer" />
+        <module name="ssh-book" />
+        <module name="homewoek-api" />
+        <module name="dubbo_provider" />
+        <module name="springboot" />
+        <module name="springboot-anntion-provider" />
+        <module name="dubbo_api" />
+        <module name="dapi" />
+        <module name="homework-provider" />
+        <module name="homewoek-consumer" />
+        <module name="dubbo_consumer" />
+        <module name="highchzrts-book" />
+        <module name="springboot_poi" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="homeworkapi" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="dubbo_consumer" options="-parameters" />
+      <module name="dubbo_provider" options="-parameters" />
+      <module name="highchzrts-book" options="-parameters" />
+      <module name="homewoek-consumer" options="-parameters" />
+      <module name="homework-provider" options="-parameters" />
+      <module name="springboot" options="-parameters" />
+      <module name="springboot-anntion-consumer" options="-parameters" />
+      <module name="springboot-anntion-provider" options="-parameters" />
+      <module name="springboot_poi" options="-parameters" />
+    </option>
+  </component>
+</project>

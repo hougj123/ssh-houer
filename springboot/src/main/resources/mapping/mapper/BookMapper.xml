@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.BookMapper" >
+    <resultMap id="BaseResultMap" type="com.jk.model.Book" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="bdate" property="bdate" jdbcType="date" />
+        <result column="author" property="author" jdbcType="VARCHAR" />
+        <result column="price" property="price" jdbcType="DOUBLE" />
+    </resultMap>
+
+    <select id="queryBook" resultMap="BaseResultMap">
+        select * from t_book
+        <where>
+            <if test="book.name!=null and book.name!=''">
+                and name like concat('%',#{book.name},'%')
+            </if>
+            <if test="book.startdate!=null and book.startdate!=''">
+                and bdate  >= #{book.startdate}
+            </if>
+            <if test="book.enddate!=null and book.enddate!=''">
+                and bdate  &lt;= #{book.enddate}
+            </if>
+        </where>
+        limit #{page},#{rows}
+    </select>
+    <select id="queryBookCount" resultType="long">
+        select count(*) from t_book
+        <where>
+            <if test="name!=null and name!=''">
+                and name like concat('%',#{name},'%')
+            </if>
+
+        </where>
+    </select>
+    <insert id="addBook">
+    insert into t_book(name,author,price,bdate)
+    values(#{name},#{author},#{price},#{bdate})
+  </insert>
+    <update id="updateBook">
+    update t_book set name=#{name},author=#{author},price=#{price},bdate=#{bdate}
+    where id = #{id}
+  </update>
+    <delete id="deleteBook">
+    delete from t_book where id in (${ids})
+  </delete>
+
+</mapper>

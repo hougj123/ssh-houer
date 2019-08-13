@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.RoleMapper">
+<select id="queryRoleCount" resultType="int" parameterType="java.util.Map">
+  	select count(1) from wl_role <include refid="mocha"/>
+  </select>
+
+ <select id="queryRole" resultType="com.jk.model.Role" parameterType="java.util.Map">
+  		select * from wl_role<include refid="mocha"/>
+  		limit #{start},#{end}
+  </select>
+
+
+	<select id="getTreeId" parameterType="Integer" resultType="String">
+	select treeid from wl_tree_role where roleid = #{id}
+</select>
+
+	<select id="getRoleTreeAll" resultType="com.jk.model.Tree">
+		select * from ll_tree
+	</select>
+
+<sql id="mocha">
+   <where>
+	   1=1
+	  	<if test=" name!=null and name!=''">
+			and name like #{name}
+		</if>
+	 </where>
+  
+  </sql>
+
+</mapper>

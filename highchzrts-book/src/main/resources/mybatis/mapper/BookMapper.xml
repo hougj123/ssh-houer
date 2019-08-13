@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.BookDao" >
+  
+  
+   <select id="queryBook" resultType="java.util.LinkedHashMap">
+       select count(*) 总个数,YEAR(b.bdate) 时间 from wl_book b GROUP BY YEAR(b.bdate)
+   </select>
+    <select id="queryBook1" resultType="java.util.LinkedHashMap">
+       select count(*) 总个数,MONTH(b.bdate) 时间 from wl_book b GROUP BY MONTH(b.bdate)
+   </select>
+
+
+ 
+</mapper>

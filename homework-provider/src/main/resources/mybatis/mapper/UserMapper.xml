@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.UserMapper">
+
+ <select id="queryUsers" parameterType="com.jk.model.User" resultType="java.lang.String">
+          select * from wl_user where username=#{username}
+    </select>
+
+<select id="getTreeAll" resultType="com.jk.model.Tree" parameterType="int">
+ SELECT t.* FROM ll_tree t,wl_user u,wl_role r,wl_user_role ur,wl_tree_role tr
+ where u.id = ur.userid
+  and ur.roleid=r.id 
+  and r.id = tr.roleid 
+  and tr.treeid=t.id 
+  and u.id=#{id}
+  group by t.text
+  </select>
+
+<select id="queryUserCount" resultType="int" parameterType="java.util.Map">
+  	select count(1) from wl_user <include refid="mocha"/>
+  </select>
+  
+<select id="queryUserAll" resultType="com.jk.model.User" parameterType="java.util.Map">
+  		select * from wl_user <include refid="mocha"/>
+  		limit #{start},#{end}
+  </select>
+
+    <delete id="deleteUserRole" parameterType="java.lang.Integer">
+ 		 delete from wl_user_role where userid = #{id}
+  </delete>
+
+    <insert id="addUser" parameterType="java.util.List">
+        INSERT INTO wl_user (username,password) VALUES
+        <foreach collection="list" item="l" separator=","  >
+            ( #{l.username},#{l.password})
+
+        </foreach>
+
+    </insert>
+
+
+
+
+<sql id="mocha">
+   <where>
+	   1=1
+	  	<if test=" name!=null and name!=''">
+			and username like #{name}
+		</if>
+	 </where>
+  
+  </sql>
+
+</mapper>

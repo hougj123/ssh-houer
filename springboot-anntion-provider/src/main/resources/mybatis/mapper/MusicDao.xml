@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.MusicDao" >
+    <resultMap id="BaseResultMap" type="com.jk.model.Music" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="time" property="time" jdbcType="TIMESTAMP" />
+        <result column="singer" property="singer" jdbcType="VARCHAR" />
+        <result column="price" property="price" jdbcType="DOUBLE" />
+    </resultMap>
+
+    <select id="queryMusic" resultMap="BaseResultMap">
+        select * from t_music
+        <where>
+            <if test="music.name!=null and music.name!=''">
+                and name like concat('%',#{music.name},'%')
+            </if>
+        </where>
+        limit #{page},#{rows}
+    </select>
+    <select id="queryMusicCount" resultType="long">
+        select count(*) from t_music
+        <where>
+            <if test="name!=null and name!=''">
+                and name like concat('%',#{name},'%')
+            </if>
+
+        </where>
+    </select>
+    <insert id="addMusic">
+    insert into t_music(name,singer,price,time)
+    values(#{name},#{singer},#{price},#{time})
+  </insert>
+    <update id="updateMusic">
+    update t_music set name=#{name},singer=#{singer},price=#{price},time=#{time}
+    where id = #{id}
+  </update>
+    <delete id="deleteMusic">
+    delete from t_music where id in (${ids})
+  </delete>
+
+</mapper>
